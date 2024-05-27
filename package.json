@@ -1,0 +1,14 @@
+{
+  "name": "nasc",
+  "version": "1.0.0",
+  "description": "Natural Asset Smart Contract, to enable investments in land conservation or regeneration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sergio I. Martell",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
+  }
+}
