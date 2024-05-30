@@ -22,6 +22,27 @@ Natural Asset Smart Contracts are an extension of the ERC-1155 Multi-token stand
 
 ## System Architecture
 
+## Contract Level Metadata
+In order to maintain interoperability and extend the functionality of non-fungible assets, we propose the use of the contractURI method in ERC-721 and ERC-1155 contracts that provide "collection-level" metadata with adherence to ERC-7572 standard.
+
+```json
+{
+    "name": "Name of the project / municipality / Basin / Nation State",
+    "Description": "Description of the Natural Asset",
+    "image": "URL with image for the Asset",
+    "banner_image": "",
+    "featured_image": "",
+    "external_link" : "",
+    "collaborators" : "",
+    "coordinates": [
+        { "lat": 25.774, "lng": -80.19 },
+        { "lat": 18.466, "lng": -66.118 },
+        { "lat": 32.321, "lng": -64.757 },
+        { "lat": 25.774, "lng": -80.19 },
+    ]
+}
+```
+
 ## Token Mapping
 In order to standarize queries and data structures the NASC requires that certain token spaces be designated.
 

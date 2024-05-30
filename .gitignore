@@ -21,3 +21,16 @@ node_modules
 
 # cli
 dist
+
+# fluence 
+/nasc-functions/.fluence 
+/.fluence/secrets
+/.fluence/provider-secrets.yaml
+/.fluence/schemas
+/.fluence/tmp
+/.fluence/service-configs
+/.fluence/aqua-dependencies/package.json
+src/frontend/src/compiled-aqua/
+**/node_modules
+**/target/
+.repl_history
