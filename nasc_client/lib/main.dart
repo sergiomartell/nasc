@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.amber,
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
           background: Colors.black,
         ),
         useMaterial3: true,
@@ -28,16 +28,21 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
+          titleLarge: GoogleFonts.montserrat(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
           bodyLarge: GoogleFonts.montserrat(
             fontSize: 20,
             color: Colors.white,
           ),
         ),
-        cardTheme: const CardTheme(
+        cardTheme: CardTheme(
           clipBehavior: Clip.antiAlias,
           elevation: 3,
-          color: Colors.white,
-          margin: EdgeInsets.all(33),
+          color: Colors.lime.shade50,
+          margin: const EdgeInsets.all(33),
         ),
       ),
       home: const HomePage(),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,6 +14,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Container(
         height: size.height,
+        width: size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(
             opacity: 0.3,
@@ -43,10 +43,13 @@ class HomePage extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               const SizedBox(height: 33),
-              Text(
-                "The biggest challenge in the world today is climate change, and we, as a community have the solutions that can be applied locally to have a global impact, wether you are a land owner, municipality, investor or a concerned citizen, you can participate in regeneration or conservations projects for our natural wealth.",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge,
+              SizedBox(
+                width: 800,
+                child: Text(
+                  "The biggest challenge in the world today is climate change, and we, as a community have the solutions that can be applied locally to have a global impact, wether you are a land owner, municipality, investor or a concerned citizen, you can participate in regeneration or conservations projects to protect and improve our natural wealth.",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               ),
               const SizedBox(height: 33),
               _buildCall2Action(context)
