@@ -14,6 +14,8 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
     mapping(uint256 => uint256) public tokenSupply;    
     mapping(DataProviderType => address[]) public dataProviders;
     mapping(address => DataProviderType) private providerTypes;
+    mapping(uint256 => string) private _uris;
+    mapping(address => uint256) selectedProvider;
 
     constructor() ERC1155("") {
         
@@ -27,6 +29,14 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
 
     function contractURI() public view returns (string memory) {
         return _contractURI;
+    }
+
+    /**
+    * @dev Returns the URI of the token
+     */
+
+    function uri(uint256 tokenId) public view override returns (string memory) {
+        return _uris[tokenId];
     }
 
 // Owner functions
@@ -55,6 +65,26 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
         dataProviders[providerType].push(provider);
         providerTypes[provider] = providerType;
     }
+    
+    /**
+    @dev Setter for Environmental data it requires that the tokenId is between 20 and 29 and that it is not already set
+     */
+
+    function setBaselineDataURI(uint256 tokenId, string memory tokenURI) public override onlyOwner {
+        require(tokenId >= 20 && tokenId <= 29, "Invalid token ID.");
+        require(bytes(_uris[tokenId]).length == 0, "URI already set.");
+        _uris[tokenId] = tokenURI;
+    }
+
+    /**
+    * @dev Setter for legal documents it requires that the tokenId is between 18 and 19 and that it is not already set
+     */
+
+    function setLegalDocumentURI(uint256 tokenId, string memory tokenURI) public override onlyOwner {
+        require(tokenId >= 18 && tokenId <= 19, "Invalid token ID.");
+        require(bytes(_uris[tokenId]).length == 0, "URI already set.");
+        _uris[tokenId] = tokenURI;
+    }
 
 // Public functions
 
@@ -67,7 +97,7 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
     }
 
     /**
-    * @dev Selects a random data provider
+    * @dev Selects a random data provider and selects the next tokenId to mint and reserves that to provider in selectedProvider mapping
     */
 
     function selectRandomDataProvider(DataProviderType providerType) external view override returns (address){
@@ -75,6 +105,19 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
         uint256 randomIndex = uint256(keccak256(abi.encodePacked(block.timestamp, block.prevrandao))) % dataProviders[providerType].length;
         return dataProviders[providerType][randomIndex];
     }
+    
+    /**
+    * @dev mints token for time series monitoring data, only the selected provider can mint this token
+    */
+
+    function setMonitoringDataURI(uint256 tokenId, string memory tokenURI) public override {
+        require(tokenId >= 40, "Invalid token ID.");
+        require(providerTypes[msg.sender] == DataProviderType.Drone, "Invalid provider.");
+        require(bytes(_uris[tokenId]).length == 0, "URI already set.");
+        _uris[tokenId] = tokenURI;
+        _mint(msg.sender, tokenId, 1, "");
+    }
+    
 
     /**
     * @dev Allows users to fund project by buying token 0
