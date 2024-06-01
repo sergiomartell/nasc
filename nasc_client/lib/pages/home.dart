@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -75,14 +76,18 @@ class HomePage extends StatelessWidget {
       spacing: 33,
       children: <Widget>[
         CallCard(
-          onTap: () {},
+          onTap: () {
+            Get.toNamed('/land_owners');
+          },
           icon: Icons.nature_people,
           title: "Land Owners",
           description:
               "Setup a conservation or regeneration project in your land",
         ),
         CallCard(
-          onTap: () {},
+          onTap: () {
+            Get.toNamed('/municipalities');
+          },
           icon: Icons.account_balance,
           title: "Municipalities",
           description:
@@ -127,7 +132,7 @@ class CallCard extends StatelessWidget {
       width: 300,
       child: Card(
         child: InkWell(
-          onTap: () {},
+          onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(33),
             child: Column(

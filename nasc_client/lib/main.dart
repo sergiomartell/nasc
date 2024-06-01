@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nasc_client/pages/pages.dart';
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Natural Asset Smart Contracts',
       theme: ThemeData(
@@ -54,7 +55,14 @@ class MyApp extends StatelessWidget {
           margin: const EdgeInsets.all(33),
         ),
       ),
-      home: const HomePage(),
+      routes: {
+        '/': (context) => const HomePage(),
+        '/municipalities': (context) =>
+            const MunicipalityPage(), // 'municipalities' is not a valid route
+        '/citizen': (context) => const CitizenPage(),
+        '/land_owners': (context) => const LandOwnersPage(),
+        '/investors': (context) => const InvestorsPage(),
+      },
     );
   }
 }
