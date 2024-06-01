@@ -9,9 +9,6 @@ interface NASC is IERC1155 {
 
     // Function declarations for Funding (Token 0)
     function setFunding(uint256 tokenId, uint256 totalSupply) external;
-   
-    // Function declarations for Ecosystem Services (Tokens 1-17)
-    function setEcosystemServiceURI(uint256 tokenId, uint256 totalSupply) external;
     
     // Function declarations for Legal and Compliance (Tokens 18-19)
     function setLegalDocumentURI(uint256 tokenId, string memory tokenURI) external;

@@ -3,9 +3,11 @@ pragma solidity ^0.8.16;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./interfaces/NASC.sol";
 
-abstract contract ElMexicano is ERC1155, NASC, Ownable{
+contract ElMexicano is ERC1155, Ownable{
+    
+    enum DataProviderType { Drone, Lab, Field }
+    enum Type { Project, Municipality, Basin, State }
 
     uint256 public tokenPrice = 0.0001 ether;
     uint256 public totalSupply = 6000000;
@@ -60,7 +62,7 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
     * @dev Registers data provider
     */
 
-     function registerDataProvider(address provider, DataProviderType providerType) external override onlyOwner{
+     function registerDataProvider(address provider, DataProviderType providerType) external  onlyOwner{
         require(provider != address(0), "Invalid provider address.");
         dataProviders[providerType].push(provider);
         providerTypes[provider] = providerType;
@@ -70,7 +72,7 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
     @dev Setter for Environmental data it requires that the tokenId is between 20 and 29 and that it is not already set
      */
 
-    function setBaselineDataURI(uint256 tokenId, string memory tokenURI) public override onlyOwner {
+    function setBaselineDataURI(uint256 tokenId, string memory tokenURI) public onlyOwner {
         require(tokenId >= 20 && tokenId <= 29, "Invalid token ID.");
         require(bytes(_uris[tokenId]).length == 0, "URI already set.");
         _uris[tokenId] = tokenURI;
@@ -80,7 +82,7 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
     * @dev Setter for legal documents it requires that the tokenId is between 18 and 19 and that it is not already set
      */
 
-    function setLegalDocumentURI(uint256 tokenId, string memory tokenURI) public override onlyOwner {
+    function setLegalDocumentURI(uint256 tokenId, string memory tokenURI) public onlyOwner {
         require(tokenId >= 18 && tokenId <= 19, "Invalid token ID.");
         require(bytes(_uris[tokenId]).length == 0, "URI already set.");
         _uris[tokenId] = tokenURI;
@@ -92,7 +94,7 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
     * @dev Get data providers of a specific type
     */
 
-    function getDataProviders(DataProviderType providerType) external view override returns (address[] memory){
+    function getDataProviders(DataProviderType providerType) external view returns (address[] memory){
         return dataProviders[providerType];
     }
 
@@ -100,7 +102,7 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
     * @dev Selects a random data provider and selects the next tokenId to mint and reserves that to provider in selectedProvider mapping
     */
 
-    function selectRandomDataProvider(DataProviderType providerType) external view override returns (address){
+    function selectRandomDataProvider(DataProviderType providerType) external view returns (address){
         require(dataProviders[providerType].length > 0, "No data providers available.");
         uint256 randomIndex = uint256(keccak256(abi.encodePacked(block.timestamp, block.prevrandao))) % dataProviders[providerType].length;
         return dataProviders[providerType][randomIndex];
@@ -110,14 +112,16 @@ abstract contract ElMexicano is ERC1155, NASC, Ownable{
     * @dev mints token for time series monitoring data, only the selected provider can mint this token
     */
 
-    function setMonitoringDataURI(uint256 tokenId, string memory tokenURI) public override {
+    function setMonitoringDataURI(uint256 tokenId, string memory tokenURI) public  {
         require(tokenId >= 40, "Invalid token ID.");
         require(providerTypes[msg.sender] == DataProviderType.Drone, "Invalid provider.");
         require(bytes(_uris[tokenId]).length == 0, "URI already set.");
         _uris[tokenId] = tokenURI;
         _mint(msg.sender, tokenId, 1, "");
     }
-    
+
+
+
 
     /**
     * @dev Allows users to fund project by buying token 0
