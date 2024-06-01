@@ -1,0 +1,1006 @@
+{
+  "type": "object",
+  "properties": {
+    "services": {
+      "title": "Services",
+      "description": "A map with service names as keys and Service configs as values. You can have any number of services listed here as long as service name keys start with a lowercase letter and contain only letters numbers and underscores. You can use `fluence service add` command to add a service to this config",
+      "type": "object",
+      "additionalProperties": {
+        "title": "Service config",
+        "description": "Service config. Defines where the service is and how to deploy it",
+        "type": "object",
+        "properties": {
+          "get": {
+            "type": "string",
+            "description": "Path to service directory or URL to the tar.gz archive with the service"
+          },
+          "totalMemoryLimit": {
+            "type": "string",
+            "pattern": "^\\d+(\\.\\d+)?(\\s?)(kB|KB|kiB|KiB|KIB|mB|MB|miB|MiB|MIB|gB|GB|giB|GiB|GIB)$",
+            "nullable": true,
+            "description": "Memory limit for all service modules. If you specify this property please make sure it's at least `2 MiB * numberOfModulesInTheService`. In repl default is the entire compute unit memory: 2GB. When deploying service as part of the worker default is: computeUnits * 2GB / (amount of services in the worker). Format: [number][whitespace?][B] where ? is an optional field and B is one of the following: kB, KB, kiB, KiB, KIB, mB, MB, miB, MiB, MIB, gB, GB, giB, GiB, GIB"
+          },
+          "overrideModules": {
+            "type": "object",
+            "title": "Overrides",
+            "description": "A map of modules to override",
+            "additionalProperties": {
+              "type": "object",
+              "title": "Module overrides",
+              "description": "Overrides for the module config",
+              "properties": {
+                "effects": {
+                  "type": "object",
+                  "nullable": true,
+                  "description": "Effects configuration. Only providers can allow and control effector modules by changing the nox configuration. Properties in this config are ignored when you deploy your code",
+                  "properties": {
+                    "binaries": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "properties": {
+                        "binary-name": {
+                          "type": "string",
+                          "description": "Path to a binary"
+                        }
+                      },
+                      "required": [],
+                      "nullable": true,
+                      "description": "A map of binary executable files that module is allowed to call. Example: curl: /usr/bin/curl"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": []
+                },
+                "repl": {
+                  "type": "object",
+                  "nullable": true,
+                  "description": "REPL configuration. Properties in this config are ignored when you deploy your code",
+                  "properties": {
+                    "loggerEnabled": {
+                      "type": "boolean",
+                      "nullable": true,
+                      "description": "Set true to allow module to use the Marine SDK logger"
+                    },
+                    "loggingMask": {
+                      "type": "number",
+                      "nullable": true,
+                      "description": "manages the logging targets, that are described in detail here: https://fluence.dev/docs/marine-book/marine-rust-sdk/developing/logging#using-target-map"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": []
+                }
+              },
+              "required": [],
+              "nullable": true,
+              "additionalProperties": false
+            },
+            "properties": {
+              "Module_name": {
+                "type": "object",
+                "title": "Module overrides",
+                "description": "Overrides for the module config",
+                "properties": {
+                  "effects": {
+                    "type": "object",
+                    "nullable": true,
+                    "description": "Effects configuration. Only providers can allow and control effector modules by changing the nox configuration. Properties in this config are ignored when you deploy your code",
+                    "properties": {
+                      "binaries": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "properties": {
+                          "binary-name": {
+                            "type": "string",
+                            "description": "Path to a binary"
+                          }
+                        },
+                        "required": [],
+                        "nullable": true,
+                        "description": "A map of binary executable files that module is allowed to call. Example: curl: /usr/bin/curl"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": []
+                  },
+                  "repl": {
+                    "type": "object",
+                    "nullable": true,
+                    "description": "REPL configuration. Properties in this config are ignored when you deploy your code",
+                    "properties": {
+                      "loggerEnabled": {
+                        "type": "boolean",
+                        "nullable": true,
+                        "description": "Set true to allow module to use the Marine SDK logger"
+                      },
+                      "loggingMask": {
+                        "type": "number",
+                        "nullable": true,
+                        "description": "manages the logging targets, that are described in detail here: https://fluence.dev/docs/marine-book/marine-rust-sdk/developing/logging#using-target-map"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": []
+                  }
+                },
+                "required": [],
+                "nullable": true,
+                "additionalProperties": false
+              }
+            },
+            "nullable": true,
+            "required": []
+          }
+        },
+        "required": [
+          "get"
+        ],
+        "additionalProperties": false
+      },
+      "properties": {
+        "Service_name": {
+          "title": "Service config",
+          "description": "Service config. Defines where the service is and how to deploy it",
+          "type": "object",
+          "properties": {
+            "get": {
+              "type": "string",
+              "description": "Path to service directory or URL to the tar.gz archive with the service"
+            },
+            "totalMemoryLimit": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?(\\s?)(kB|KB|kiB|KiB|KIB|mB|MB|miB|MiB|MIB|gB|GB|giB|GiB|GIB)$",
+              "nullable": true,
+              "description": "Memory limit for all service modules. If you specify this property please make sure it's at least `2 MiB * numberOfModulesInTheService`. In repl default is the entire compute unit memory: 2GB. When deploying service as part of the worker default is: computeUnits * 2GB / (amount of services in the worker). Format: [number][whitespace?][B] where ? is an optional field and B is one of the following: kB, KB, kiB, KiB, KIB, mB, MB, miB, MiB, MIB, gB, GB, giB, GiB, GIB"
+            },
+            "overrideModules": {
+              "type": "object",
+              "title": "Overrides",
+              "description": "A map of modules to override",
+              "additionalProperties": {
+                "type": "object",
+                "title": "Module overrides",
+                "description": "Overrides for the module config",
+                "properties": {
+                  "effects": {
+                    "type": "object",
+                    "nullable": true,
+                    "description": "Effects configuration. Only providers can allow and control effector modules by changing the nox configuration. Properties in this config are ignored when you deploy your code",
+                    "properties": {
+                      "binaries": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "properties": {
+                          "binary-name": {
+                            "type": "string",
+                            "description": "Path to a binary"
+                          }
+                        },
+                        "required": [],
+                        "nullable": true,
+                        "description": "A map of binary executable files that module is allowed to call. Example: curl: /usr/bin/curl"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": []
+                  },
+                  "repl": {
+                    "type": "object",
+                    "nullable": true,
+                    "description": "REPL configuration. Properties in this config are ignored when you deploy your code",
+                    "properties": {
+                      "loggerEnabled": {
+                        "type": "boolean",
+                        "nullable": true,
+                        "description": "Set true to allow module to use the Marine SDK logger"
+                      },
+                      "loggingMask": {
+                        "type": "number",
+                        "nullable": true,
+                        "description": "manages the logging targets, that are described in detail here: https://fluence.dev/docs/marine-book/marine-rust-sdk/developing/logging#using-target-map"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": []
+                  }
+                },
+                "required": [],
+                "nullable": true,
+                "additionalProperties": false
+              },
+              "properties": {
+                "Module_name": {
+                  "type": "object",
+                  "title": "Module overrides",
+                  "description": "Overrides for the module config",
+                  "properties": {
+                    "effects": {
+                      "type": "object",
+                      "nullable": true,
+                      "description": "Effects configuration. Only providers can allow and control effector modules by changing the nox configuration. Properties in this config are ignored when you deploy your code",
+                      "properties": {
+                        "binaries": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "properties": {
+                            "binary-name": {
+                              "type": "string",
+                              "description": "Path to a binary"
+                            }
+                          },
+                          "required": [],
+                          "nullable": true,
+                          "description": "A map of binary executable files that module is allowed to call. Example: curl: /usr/bin/curl"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": []
+                    },
+                    "repl": {
+                      "type": "object",
+                      "nullable": true,
+                      "description": "REPL configuration. Properties in this config are ignored when you deploy your code",
+                      "properties": {
+                        "loggerEnabled": {
+                          "type": "boolean",
+                          "nullable": true,
+                          "description": "Set true to allow module to use the Marine SDK logger"
+                        },
+                        "loggingMask": {
+                          "type": "number",
+                          "nullable": true,
+                          "description": "manages the logging targets, that are described in detail here: https://fluence.dev/docs/marine-book/marine-rust-sdk/developing/logging#using-target-map"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": []
+                    }
+                  },
+                  "required": [],
+                  "nullable": true,
+                  "additionalProperties": false
+                }
+              },
+              "nullable": true,
+              "required": []
+            }
+          },
+          "required": [
+            "get"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "nullable": true
+    },
+    "version": {
+      "type": "integer",
+      "const": 8
+    },
+    "hosts": {
+      "description": "A map of objects with worker names as keys, each object defines a list of peer IDs to host the worker on. Intended to be used by providers to deploy directly without using the blockchain",
+      "type": "object",
+      "nullable": true,
+      "additionalProperties": {
+        "type": "object",
+        "description": "Deployment config",
+        "properties": {
+          "services": {
+            "description": "An array of service names to include in this worker. Service names must be listed in fluence.yaml",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "spells": {
+            "description": "An array of spell names to include in this worker. Spell names must be listed in fluence.yaml",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "peerIds": {
+            "type": "array",
+            "description": "An array of peer IDs to deploy on",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "properties": {
+        "workerName": {
+          "type": "object",
+          "description": "Deployment config",
+          "properties": {
+            "services": {
+              "description": "An array of service names to include in this worker. Service names must be listed in fluence.yaml",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            "spells": {
+              "description": "An array of spell names to include in this worker. Spell names must be listed in fluence.yaml",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            "peerIds": {
+              "type": "array",
+              "description": "An array of peer IDs to deploy on",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": []
+    },
+    "spells": {
+      "type": "object",
+      "nullable": true,
+      "description": "A map with spell names as keys and spell configs as values",
+      "additionalProperties": {
+        "type": "object",
+        "description": "Spell config",
+        "properties": {
+          "get": {
+            "type": "string",
+            "description": "Path to spell"
+          },
+          "version": {
+            "type": "integer",
+            "const": 0
+          },
+          "aquaFilePath": {
+            "type": "string",
+            "description": "Path to Aqua file which contains an Aqua function that you want to use as a spell",
+            "nullable": true
+          },
+          "function": {
+            "type": "string",
+            "description": "Name of the Aqua function that you want to use as a spell",
+            "nullable": true
+          },
+          "initArgs": {
+            "type": "object",
+            "description": "A map of Aqua function arguments names as keys and arguments values as values. They will be passed to the spell function and will be stored in the key-value storage for this particular spell.",
+            "nullable": true
+          },
+          "clock": {
+            "type": "object",
+            "additionalProperties": false,
+            "nullable": true,
+            "description": "Trigger the spell execution periodically. If you want to disable this property by overriding it in fluence.yaml - pass empty config for it like this: `clock: {}`",
+            "properties": {
+              "periodSec": {
+                "type": "integer",
+                "description": "How often the spell will be executed. If set to 0, the spell will be executed only once. If this value not provided at all - the spell will never be executed",
+                "minimum": 0,
+                "maximum": 3153600000,
+                "nullable": true
+              },
+              "startTimestamp": {
+                "type": "string",
+                "description": "An ISO timestamp when the periodic execution should start. If this property or `startDelaySec` not specified, periodic execution will start immediately. If it is set to 0 - the spell will never be executed",
+                "nullable": true
+              },
+              "endTimestamp": {
+                "type": "string",
+                "description": "An ISO timestamp when the periodic execution should end. If this property or `endDelaySec` not specified, periodic execution will never end. If it is in the past at the moment of spell creation on Rust peer - the spell will never be executed",
+                "nullable": true
+              },
+              "startDelaySec": {
+                "type": "integer",
+                "description": "How long to wait before the first execution in seconds. If this property or `startTimestamp` not specified, periodic execution will start immediately. WARNING! Currently your computer's clock is used to determine a final timestamp that is sent to the server. This property conflicts with `startTimestamp`. You can specify only one of them",
+                "nullable": true,
+                "minimum": 0,
+                "maximum": 4294967295
+              },
+              "endDelaySec": {
+                "type": "integer",
+                "description": "How long to wait before the last execution in seconds. If this property or `endTimestamp` not specified, periodic execution will never end. WARNING! Currently your computer's clock is used to determine a final timestamp that is sent to the server. If it is in the past at the moment of spell creation - the spell will never be executed. This property conflicts with `endTimestamp`. You can specify only one of them",
+                "nullable": true,
+                "minimum": 0,
+                "maximum": 4294967295
+              }
+            },
+            "required": []
+          }
+        },
+        "required": [
+          "get"
+        ],
+        "additionalProperties": false
+      },
+      "properties": {
+        "Spell_name": {
+          "type": "object",
+          "description": "Spell config",
+          "properties": {
+            "get": {
+              "type": "string",
+              "description": "Path to spell"
+            },
+            "version": {
+              "type": "integer",
+              "const": 0
+            },
+            "aquaFilePath": {
+              "type": "string",
+              "description": "Path to Aqua file which contains an Aqua function that you want to use as a spell",
+              "nullable": true
+            },
+            "function": {
+              "type": "string",
+              "description": "Name of the Aqua function that you want to use as a spell",
+              "nullable": true
+            },
+            "initArgs": {
+              "type": "object",
+              "description": "A map of Aqua function arguments names as keys and arguments values as values. They will be passed to the spell function and will be stored in the key-value storage for this particular spell.",
+              "nullable": true
+            },
+            "clock": {
+              "type": "object",
+              "additionalProperties": false,
+              "nullable": true,
+              "description": "Trigger the spell execution periodically. If you want to disable this property by overriding it in fluence.yaml - pass empty config for it like this: `clock: {}`",
+              "properties": {
+                "periodSec": {
+                  "type": "integer",
+                  "description": "How often the spell will be executed. If set to 0, the spell will be executed only once. If this value not provided at all - the spell will never be executed",
+                  "minimum": 0,
+                  "maximum": 3153600000,
+                  "nullable": true
+                },
+                "startTimestamp": {
+                  "type": "string",
+                  "description": "An ISO timestamp when the periodic execution should start. If this property or `startDelaySec` not specified, periodic execution will start immediately. If it is set to 0 - the spell will never be executed",
+                  "nullable": true
+                },
+                "endTimestamp": {
+                  "type": "string",
+                  "description": "An ISO timestamp when the periodic execution should end. If this property or `endDelaySec` not specified, periodic execution will never end. If it is in the past at the moment of spell creation on Rust peer - the spell will never be executed",
+                  "nullable": true
+                },
+                "startDelaySec": {
+                  "type": "integer",
+                  "description": "How long to wait before the first execution in seconds. If this property or `startTimestamp` not specified, periodic execution will start immediately. WARNING! Currently your computer's clock is used to determine a final timestamp that is sent to the server. This property conflicts with `startTimestamp`. You can specify only one of them",
+                  "nullable": true,
+                  "minimum": 0,
+                  "maximum": 4294967295
+                },
+                "endDelaySec": {
+                  "type": "integer",
+                  "description": "How long to wait before the last execution in seconds. If this property or `endTimestamp` not specified, periodic execution will never end. WARNING! Currently your computer's clock is used to determine a final timestamp that is sent to the server. If it is in the past at the moment of spell creation - the spell will never be executed. This property conflicts with `endTimestamp`. You can specify only one of them",
+                  "nullable": true,
+                  "minimum": 0,
+                  "maximum": 4294967295
+                }
+              },
+              "required": []
+            }
+          },
+          "required": [
+            "get"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": []
+    },
+    "aquaImports": {
+      "type": "array",
+      "description": "A list of path to be considered by aqua compiler to be used as imports. First dependency in the list has the highest priority. Priority of imports is considered in the following order: imports from --import flags, imports from aquaImports property in fluence.yaml, project's .fluence/aqua dir, npm dependencies from fluence.yaml, npm dependencies from user's .fluence/config.yaml, npm dependencies recommended by fluence",
+      "items": {
+        "type": "string"
+      },
+      "nullable": true
+    },
+    "marineBuildArgs": {
+      "type": "string",
+      "description": "Space separated `cargo build` flags and args to pass to marine build. Can be overridden using --marine-build-args flag Default: --release",
+      "nullable": true
+    },
+    "cliVersion": {
+      "type": "string",
+      "description": "The version of the Fluence CLI that is compatible with this project. Set this to enforce a particular set of versions of all fluence components",
+      "nullable": true
+    },
+    "ipfsAddr": {
+      "type": "string",
+      "description": "IPFS multiaddress to use when uploading workers with 'fluence deploy'. Default: /dns4/ipfs.fluence.dev/tcp/5001 or /ip4/127.0.0.1/tcp/5001 if using local local env (for 'workers deploy' IPFS address provided by relay that you are connected to is used)",
+      "nullable": true,
+      "default": "/dns4/ipfs.fluence.dev/tcp/5001"
+    },
+    "customFluenceEnv": {
+      "type": "object",
+      "description": "Custom Fluence environment to use when connecting to Fluence network",
+      "nullable": true,
+      "properties": {
+        "contractsEnv": {
+          "type": "string",
+          "description": "Contracts environment to use for this fluence network to sign contracts on the blockchain",
+          "enum": [
+            "dar",
+            "kras",
+            "stage",
+            "local"
+          ]
+        },
+        "relays": {
+          "type": "array",
+          "description": "List of custom relay multiaddresses to use when connecting to Fluence network",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "contractsEnv",
+        "relays"
+      ],
+      "additionalProperties": false
+    },
+    "defaultSecretKeyName": {
+      "description": "Secret key with this name will be used by default by js-client inside CLI to run Aqua code",
+      "type": "string",
+      "nullable": true
+    },
+    "relaysPath": {
+      "type": [
+        "string",
+        "array",
+        "null"
+      ],
+      "description": "Single or multiple paths to the directories where you want relays.json file to be generated. Must be relative to the project root dir. This file contains a list of relays to use when connecting to Fluence network and depends on the default environment that you use in your project",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      ],
+      "nullable": true
+    },
+    "aquaDependencies": {
+      "description": "A map of npm aqua dependency versions",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "properties": {
+        "npm-aqua-dependency-name": {
+          "type": "string",
+          "description": "Valid npm dependency version specification (check out https://docs.npmjs.com/cli/v10/configuring-npm/package-json#dependencies)"
+        }
+      },
+      "required": []
+    },
+    "marineVersion": {
+      "type": "string",
+      "description": "Marine version",
+      "nullable": true
+    },
+    "mreplVersion": {
+      "type": "string",
+      "description": "Mrepl version",
+      "nullable": true
+    },
+    "compileAqua": {
+      "type": "object",
+      "description": "A map of aqua files to compile",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "Relative path to the aqua file or directory with aqua files"
+          },
+          "output": {
+            "type": "string",
+            "description": "Relative path to the output directory"
+          },
+          "target": {
+            "type": "string",
+            "description": "Compilation target",
+            "enum": [
+              "ts",
+              "js",
+              "air"
+            ]
+          },
+          "constants": {
+            "type": "object",
+            "description": "A list of constants to pass to the compiler. Constant name must be uppercase",
+            "additionalProperties": {
+              "type": [
+                "string",
+                "number",
+                "boolean"
+              ]
+            },
+            "properties": {
+              "SOME_CONSTANT": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean"
+                ]
+              }
+            },
+            "nullable": true,
+            "required": []
+          },
+          "logLevel": {
+            "type": "string",
+            "description": "Log level for the compiler. Default: info",
+            "nullable": true,
+            "enum": [
+              "all",
+              "trace",
+              "debug",
+              "info",
+              "warn",
+              "error",
+              "off"
+            ]
+          },
+          "noRelay": {
+            "type": "boolean",
+            "description": "Do not generate a pass through the relay node. Default: false",
+            "nullable": true,
+            "default": false
+          },
+          "noXor": {
+            "type": "boolean",
+            "description": "Do not generate a wrapper that catches and displays errors. Default: false",
+            "nullable": true,
+            "default": false
+          },
+          "tracing": {
+            "type": "boolean",
+            "description": "Compile aqua in tracing mode (for debugging purposes). Default: false",
+            "nullable": true,
+            "default": false
+          },
+          "noEmptyResponse": {
+            "type": "boolean",
+            "description": "Do not generate response call if there are no returned values. Default: false",
+            "nullable": true,
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "input",
+          "output",
+          "target"
+        ]
+      },
+      "properties": {
+        "aqua-config-name": {
+          "type": "object",
+          "properties": {
+            "input": {
+              "type": "string",
+              "description": "Relative path to the aqua file or directory with aqua files"
+            },
+            "output": {
+              "type": "string",
+              "description": "Relative path to the output directory"
+            },
+            "target": {
+              "type": "string",
+              "description": "Compilation target",
+              "enum": [
+                "ts",
+                "js",
+                "air"
+              ]
+            },
+            "constants": {
+              "type": "object",
+              "description": "A list of constants to pass to the compiler. Constant name must be uppercase",
+              "additionalProperties": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean"
+                ]
+              },
+              "properties": {
+                "SOME_CONSTANT": {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                  ]
+                }
+              },
+              "nullable": true,
+              "required": []
+            },
+            "logLevel": {
+              "type": "string",
+              "description": "Log level for the compiler. Default: info",
+              "nullable": true,
+              "enum": [
+                "all",
+                "trace",
+                "debug",
+                "info",
+                "warn",
+                "error",
+                "off"
+              ]
+            },
+            "noRelay": {
+              "type": "boolean",
+              "description": "Do not generate a pass through the relay node. Default: false",
+              "nullable": true,
+              "default": false
+            },
+            "noXor": {
+              "type": "boolean",
+              "description": "Do not generate a wrapper that catches and displays errors. Default: false",
+              "nullable": true,
+              "default": false
+            },
+            "tracing": {
+              "type": "boolean",
+              "description": "Compile aqua in tracing mode (for debugging purposes). Default: false",
+              "nullable": true,
+              "default": false
+            },
+            "noEmptyResponse": {
+              "type": "boolean",
+              "description": "Do not generate response call if there are no returned values. Default: false",
+              "nullable": true,
+              "default": false
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "input",
+            "output",
+            "target"
+          ]
+        }
+      },
+      "required": [],
+      "nullable": true
+    },
+    "deployments": {
+      "description": "A map with deployment names as keys and deployments as values",
+      "type": "object",
+      "nullable": true,
+      "additionalProperties": {
+        "type": "object",
+        "description": "Deployment config",
+        "properties": {
+          "services": {
+            "description": "An array of service names to include in this worker. Service names must be listed in fluence.yaml",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "spells": {
+            "description": "An array of spell names to include in this worker. Spell names must be listed in fluence.yaml",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "computeUnits": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1,
+            "default": 1,
+            "description": "Number of compute units you require. 1 compute unit = 2GB. Currently the only allowed value is 1. This will change in the future. Default: 1",
+            "nullable": true
+          },
+          "targetWorkers": {
+            "type": "integer",
+            "description": "Max workers in the deal",
+            "default": 3,
+            "nullable": true,
+            "minimum": 1
+          },
+          "minWorkers": {
+            "type": "integer",
+            "description": "Required workers to activate the deal. Matches target workers by default",
+            "nullable": true,
+            "minimum": 1
+          },
+          "maxWorkersPerProvider": {
+            "type": "integer",
+            "description": "Max workers per provider. Matches target workers by default",
+            "nullable": true,
+            "minimum": 1
+          },
+          "pricePerWorkerEpoch": {
+            "type": "string",
+            "description": "Price per worker epoch in USDC",
+            "default": "0.33",
+            "nullable": true
+          },
+          "initialBalance": {
+            "type": "string",
+            "description": "Initial balance after deploy in USDC. Default: targetWorkers * pricePerWorkerEpoch * minDealDepositedEpochs. For local environment: enough for deal to be active for 1 day",
+            "nullable": true
+          },
+          "effectors": {
+            "type": "array",
+            "description": "Effector CIDs to be used in the deal. Must be a valid CID",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "whitelist": {
+            "type": "array",
+            "description": "Whitelist of providers to deploy to. Can't be used together with blacklist",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "blacklist": {
+            "type": "array",
+            "description": "Blacklist of providers to deploy to. Can't be used together with whitelist",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "protocolVersion": {
+            "type": "integer",
+            "description": "Protocol version. Default: 1",
+            "nullable": true,
+            "default": 1,
+            "minimum": 1
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "properties": {
+        "deploymentName": {
+          "type": "object",
+          "description": "Deployment config",
+          "properties": {
+            "services": {
+              "description": "An array of service names to include in this worker. Service names must be listed in fluence.yaml",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            "spells": {
+              "description": "An array of spell names to include in this worker. Spell names must be listed in fluence.yaml",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            "computeUnits": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1,
+              "default": 1,
+              "description": "Number of compute units you require. 1 compute unit = 2GB. Currently the only allowed value is 1. This will change in the future. Default: 1",
+              "nullable": true
+            },
+            "targetWorkers": {
+              "type": "integer",
+              "description": "Max workers in the deal",
+              "default": 3,
+              "nullable": true,
+              "minimum": 1
+            },
+            "minWorkers": {
+              "type": "integer",
+              "description": "Required workers to activate the deal. Matches target workers by default",
+              "nullable": true,
+              "minimum": 1
+            },
+            "maxWorkersPerProvider": {
+              "type": "integer",
+              "description": "Max workers per provider. Matches target workers by default",
+              "nullable": true,
+              "minimum": 1
+            },
+            "pricePerWorkerEpoch": {
+              "type": "string",
+              "description": "Price per worker epoch in USDC",
+              "default": "0.33",
+              "nullable": true
+            },
+            "initialBalance": {
+              "type": "string",
+              "description": "Initial balance after deploy in USDC. Default: targetWorkers * pricePerWorkerEpoch * minDealDepositedEpochs. For local environment: enough for deal to be active for 1 day",
+              "nullable": true
+            },
+            "effectors": {
+              "type": "array",
+              "description": "Effector CIDs to be used in the deal. Must be a valid CID",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            "whitelist": {
+              "type": "array",
+              "description": "Whitelist of providers to deploy to. Can't be used together with blacklist",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            "blacklist": {
+              "type": "array",
+              "description": "Blacklist of providers to deploy to. Can't be used together with whitelist",
+              "items": {
+                "type": "string"
+              },
+              "nullable": true
+            },
+            "protocolVersion": {
+              "type": "integer",
+              "description": "Protocol version. Default: 1",
+              "nullable": true,
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": []
+    }
+  },
+  "required": [
+    "version",
+    "aquaDependencies"
+  ],
+  "additionalProperties": false,
+  "$id": "https://fluence.dev/schemas/fluence.yaml",
+  "title": "fluence.yaml",
+  "description": "Defines Fluence Project, most importantly - what exactly you want to deploy and how. You can use `fluence init` command to generate a template for new Fluence project"
+}
