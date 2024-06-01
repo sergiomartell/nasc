@@ -9,7 +9,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,9 +27,19 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
+          headlineMedium: GoogleFonts.montserrat(
+            fontSize: 27,
+            fontWeight: FontWeight.bold,
+            color: Colors.amber,
+          ),
           titleLarge: GoogleFonts.montserrat(
             fontSize: 20,
             fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+          titleMedium: GoogleFonts.montserrat(
+            fontSize: 17,
+            fontWeight: FontWeight.w900,
             color: Colors.black87,
           ),
           bodyLarge: GoogleFonts.montserrat(

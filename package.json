@@ -9,6 +9,7 @@
   "author": "Sergio I. Martell",
   "license": "ISC",
   "dependencies": {
+    "@lit-protocol/lit-node-client": "^5.1.0",
     "@openzeppelin/contracts": "^5.0.2"
   }
 }

@@ -30,32 +30,41 @@ class HomePage extends StatelessWidget {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(33),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset("assets/images/nasc.png", height: 200),
-              const SizedBox(height: 33),
-              Text(
-                'Natural Asset Smart Contracts',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              const SizedBox(height: 33),
-              SizedBox(
-                width: 800,
-                child: Text(
-                  "The biggest challenge in the world today is climate change, and we, as a community have the solutions that can be applied locally to have a global impact, wether you are a land owner, municipality, investor or a concerned citizen, you can participate in regeneration or conservations projects to protect and improve our natural wealth.",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ),
-              const SizedBox(height: 33),
-              _buildCall2Action(context)
-            ],
+        child: _createBody(context),
+      ),
+    );
+  }
+
+  SingleChildScrollView _createBody(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(33),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset("assets/images/nasc.png", height: 200),
+          const SizedBox(height: 33),
+          Text(
+            'Natural Asset Smart Contracts',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
-        ),
+          const SizedBox(height: 33),
+          SizedBox(
+            width: 900,
+            child: Text(
+              "Climate change is our most pressing challenge. By participating in local regeneration and conservation projects, landowners, municipalities, investors, and citizens can make a global impact and protect our natural wealth.",
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+          const SizedBox(height: 33),
+          Text(
+            "We have the solutions, it is time we apply them!",
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 33),
+          _buildCall2Action(context)
+        ],
       ),
     );
   }
@@ -81,17 +90,17 @@ class HomePage extends StatelessWidget {
         ),
         CallCard(
           onTap: () {},
-          icon: Icons.monetization_on,
-          title: "Investors",
-          description:
-              "Invest in conservation or regeneration projects in your area",
-        ),
-        CallCard(
-          onTap: () {},
           icon: Icons.people,
           title: "Citizen",
           description:
               "Monitor conservation or regeneration projects in your area",
+        ),
+        CallCard(
+          onTap: () {},
+          icon: Icons.monetization_on,
+          title: "Investors",
+          description:
+              "Invest in conservation or regeneration projects in your area",
         ),
       ],
     );
