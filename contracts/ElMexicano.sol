@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract ElMexicano is ERC1155, Ownable{
-    
+
     enum DataProviderType { Drone, Lab, Field }
     enum Type { Project, Municipality, Basin, State }
 
@@ -119,9 +119,6 @@ contract ElMexicano is ERC1155, Ownable{
         _uris[tokenId] = tokenURI;
         _mint(msg.sender, tokenId, 1, "");
     }
-
-
-
 
     /**
     * @dev Allows users to fund project by buying token 0
