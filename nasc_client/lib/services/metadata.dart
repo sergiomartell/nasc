@@ -133,7 +133,7 @@ class LighthouseUploader {
         // Assuming the response contains a 'uri' field with the file URI
         var fileUri = jsonResponse['Hash'];
         debugPrint('JSON uploaded successfully: $fileUri');
-        web3.setBaselineDataURI(3, fileUri);
+        web3.setBaselineDataURI(20, fileUri);
         return fileUri;
       } else {
         debugPrint(

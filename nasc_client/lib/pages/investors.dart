@@ -105,7 +105,7 @@ class _InvestorsPageState extends State<InvestorsPage> {
               ? ElevatedButton.icon(
                   onPressed: () {},
                   icon: const Icon(FontAwesomeIcons.ethereum),
-                  label: const Text("Set Baseline Data URI"),
+                  label: const Text("Add Baseline Data"),
                 )
               : const CircularProgressIndicator(),
         ),
@@ -114,20 +114,20 @@ class _InvestorsPageState extends State<InvestorsPage> {
         ),
         ElevatedButton.icon(
           onPressed: () {
-            web3.setBaselineDataURI(2, "https://www.baselinDataURI.com");
+            //web3.setBaselineDataURI(2, "https://www.baselinDataURI.com");
           },
           icon: const Icon(FontAwesomeIcons.ethereum),
-          label: const Text("Set Baseline Data URI"),
+          label: const Text("Add Legal Data"),
         ),
         const SizedBox(
           width: 20,
         ),
         ElevatedButton.icon(
           onPressed: () {
-            web3.setBaselineDataURI(3, "https://www.baselinDataURI.com");
+            //web3.setBaselineDataURI(3, "https://www.baselinDataURI.com");
           },
           icon: const Icon(FontAwesomeIcons.ethereum),
-          label: const Text("Set Baseline Data URI"),
+          label: const Text("Add Monitoring Data"),
         ),
       ],
     );
