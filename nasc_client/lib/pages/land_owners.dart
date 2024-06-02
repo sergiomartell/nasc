@@ -7,7 +7,6 @@ class LandOwnersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    ThemeData theme = Theme.of(context);
     final Uri url = Uri.parse('https://hopetowns.earth/');
     Future<void> gotoPage() async {
       if (await canLaunchUrl(url)) {
@@ -28,11 +27,6 @@ class LandOwnersPage extends StatelessWidget {
           height: size.height,
           width: size.width,
           decoration: const BoxDecoration(
-            /* image: DecorationImage(
-              opacity: 0.3,
-              image: AssetImage("assets/images/sanjose.jpg"),
-              fit: BoxFit.cover,
-            ), */
             gradient: LinearGradient(
               colors: [
                 Colors.green,
