@@ -62,7 +62,7 @@ contract ElMexicano is ERC1155, Ownable{
     * @dev Registers data provider
     */
 
-     function registerDataProvider(address provider, DataProviderType providerType) external  onlyOwner{
+     function registerDataProvider(address provider, DataProviderType providerType) external onlyOwner{
         require(provider != address(0), "Invalid provider address.");
         dataProviders[providerType].push(provider);
         providerTypes[provider] = providerType;

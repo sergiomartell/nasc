@@ -4,7 +4,15 @@ import 'package:get/get.dart';
 class Web3 extends GetxController {
   final int operatingChain = 11155111;
   static const String elMexicano = "";
-  final abi = [];
+  final abi = [
+    "function contractURI() public view returns (string memory)",
+    "function registerDataProvider(address provider, DataProviderType providerType) external onlyOwner",
+    "function setBaselineDataURI(uint256 tokenId, string memory tokenURI) public onlyOwner",
+    "function setLegalDocumentURI(uint256 tokenId, string memory tokenURI) public onlyOwner",
+    "function setMonitoringDataURI(uint256 tokenId, string memory tokenURI) public",
+    "function selectRandomDataProvider(DataProviderType providerType) external view returns (address)"
+        "function fundProject(uint256 amount) external payable",
+  ];
 
   bool get isInOperatingChain => currentChain == operatingChain;
 
@@ -17,6 +25,7 @@ class Web3 extends GetxController {
   String selectedAddress = "";
 
   int currentChain = -1;
+
   connectProvider() async {
     if (Ethereum.isSupported) {
       final accs = await ethereum!.requestAccount();
