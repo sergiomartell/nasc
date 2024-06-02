@@ -117,21 +117,3 @@ After token Id 40, the instrument stores a stratified data capture that comes fr
 
 ### Filecoin
     -- Storage and data inmutability
-
-### Lit Protocol
-    -- Key management for non-technical users
-
-### Fluence
-    -- Dispatch, Randomization, and Geo-referencing functions.
-
-### Galadriel
-    -- Integration with LLMs to assess environmental data.
-
-### Lilypad
-    -- Integration with LLMs to behave as Oracle to emit ERC-20 tokens for environmental commodities.
-
-### WeatherXM
-    -- Example of how DePin can integrate and generate value from environmental commodities.
-
-### Starknet
-    -- L2 deployment
