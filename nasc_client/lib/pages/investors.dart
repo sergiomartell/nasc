@@ -12,6 +12,9 @@ class InvestorsPage extends StatefulWidget {
 }
 
 class _InvestorsPageState extends State<InvestorsPage> {
+  final TextEditingController _textController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  String _numberOfTokens = "";
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -52,6 +55,57 @@ class _InvestorsPageState extends State<InvestorsPage> {
   }
 
   //* Widget Builds
+
+  // Widget that builds form to fund project
+
+  Widget _buildFundForm(Web3 web3, TextTheme theme) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      width: 550,
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Text("Invest in the Project", style: theme.titleMedium),
+            Text("Total Supply: 6,000,000", style: theme.labelLarge),
+            Text("Price: 0.0001 ETH", style: theme.labelLarge),
+            TextFormField(
+              controller: _textController,
+              decoration: const InputDecoration(
+                labelText: "Add Number of Tokens to Fund Project",
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Please enter a number";
+                }
+                return null;
+              },
+              onSaved: (value) {
+                _numberOfTokens = value!;
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+                  web3.fundProject(int.parse(_numberOfTokens));
+                }
+              },
+              child: const Text("Fund Project"),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   Container _buildHero(
       Size screen, BuildContext context, TextTheme theme, Web3 web3) {
     return Container(
@@ -99,73 +153,82 @@ class _InvestorsPageState extends State<InvestorsPage> {
         spacing: screen.width * .10,
         runSpacing: 33,
         children: [
-          Container(
-            padding: const EdgeInsets.all(33),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(.7),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("El Mexicano", style: theme.displayMedium),
-                Text("Natural Asset Smart Contract", style: theme.titleMedium),
-                TextButton.icon(
-                  onPressed: () {
-                    launchUrlString(
-                        "https://sepolia.etherscan.io/address/0xb63c7485718cdc27907c702bc6837734eda288f3");
-                  },
-                  icon: const Icon(FontAwesomeIcons.ethereum),
-                  label: const Text(
-                    "0xB63c7485718cdc27907c702bC6837734eDA288F3",
-                  ),
+          Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(33),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(.7),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                SizedBox(
-                  width: 500,
-                  child: Text(
-                      "El Mexicano is a conservation and regeneration project of 600 hectares in the outskirts of Guadalajara Jalisco",
-                      style: theme.bodyMedium),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    IconIndicator(
-                      icon2: const Icon(Icons.location_city),
-                      data: "Ixtlahuacán del Río",
-                      theme: theme,
+                    Text("El Mexicano", style: theme.displayMedium),
+                    Text("Natural Asset Smart Contract",
+                        style: theme.titleMedium),
+                    TextButton.icon(
+                      onPressed: () {
+                        launchUrlString(
+                            "https://sepolia.etherscan.io/address/0xb63c7485718cdc27907c702bc6837734eda288f3");
+                      },
+                      icon: const Icon(FontAwesomeIcons.ethereum),
+                      label: const Text(
+                        "0xB63c7485718cdc27907c702bC6837734eDA288F3",
+                      ),
+                    ),
+                    SizedBox(
+                      width: 500,
+                      child: Text(
+                          "El Mexicano is a conservation and regeneration project of 600 hectares in the outskirts of Guadalajara Jalisco",
+                          style: theme.bodyMedium),
                     ),
                     const SizedBox(
-                      width: 15,
+                      height: 10,
                     ),
-                    IconIndicator(
-                      icon2: const Icon(Icons.home_work),
-                      data: "Jalisco",
-                      theme: theme,
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    IconIndicator(
-                      icon2: const Icon(Icons.water),
-                      data: "Lerma-Santiago",
-                      theme: theme,
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    IconIndicator(
-                      icon2: const Icon(Icons.flag),
-                      data: "Mexico",
-                      theme: theme,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconIndicator(
+                          icon2: const Icon(Icons.location_city),
+                          data: "Ixtlahuacán del Río",
+                          theme: theme,
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        IconIndicator(
+                          icon2: const Icon(Icons.home_work),
+                          data: "Jalisco",
+                          theme: theme,
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        IconIndicator(
+                          icon2: const Icon(Icons.water),
+                          data: "Lerma-Santiago",
+                          theme: theme,
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        IconIndicator(
+                          icon2: const Icon(Icons.flag),
+                          data: "Mexico",
+                          theme: theme,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 33,
+              ),
+              _buildFundForm(web3, theme),
+            ],
           ),
           Image.asset(
             "assets/images/mexicanoMap.png",

@@ -6,9 +6,9 @@ class Web3 extends GetxController {
   static const String elMexicano = "0xB63c7485718cdc27907c702bC6837734eDA288F3";
   final abi = [
     "function contractURI() public view returns (string memory)",
-    "function registerDataProvider(address provider, DataProviderType providerType) external onlyOwner",
-    "function setBaselineDataURI(uint256 tokenId, string memory tokenURI) public onlyOwner",
-    "function setLegalDocumentURI(uint256 tokenId, string memory tokenURI) public onlyOwner",
+    "function registerDataProvider(address provider, DataProviderType providerType) external",
+    "function setBaselineDataURI(uint256 tokenId, string memory tokenURI) public",
+    "function setLegalDocumentURI(uint256 tokenId, string memory tokenURI) public",
     "function setMonitoringDataURI(uint256 tokenId, string memory tokenURI) public",
     "function selectRandomDataProvider(DataProviderType providerType) external view returns (address)",
     "function fundProject(uint256 amount) external payable",
@@ -25,6 +25,23 @@ class Web3 extends GetxController {
   String selectedAddress = "";
 
   int currentChain = -1;
+
+// Function to fundProject
+  Future<dynamic> fundProject(int quantity) async {
+    final contract = Contract(elMexicano, abi, provider?.getSigner());
+    try {
+      final tx = await contract.send(
+        "fundProject",
+        [quantity],
+        TransactionOverride(
+          value: BigInt.from(quantity * 100000000000000),
+        ),
+      );
+      return tx;
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   connectProvider() async {
     if (Ethereum.isSupported) {
