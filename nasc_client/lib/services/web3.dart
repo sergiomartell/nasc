@@ -3,15 +3,15 @@ import 'package:get/get.dart';
 
 class Web3 extends GetxController {
   final int operatingChain = 11155111;
-  static const String elMexicano = "";
+  static const String elMexicano = "0xB63c7485718cdc27907c702bC6837734eDA288F3";
   final abi = [
     "function contractURI() public view returns (string memory)",
     "function registerDataProvider(address provider, DataProviderType providerType) external onlyOwner",
     "function setBaselineDataURI(uint256 tokenId, string memory tokenURI) public onlyOwner",
     "function setLegalDocumentURI(uint256 tokenId, string memory tokenURI) public onlyOwner",
     "function setMonitoringDataURI(uint256 tokenId, string memory tokenURI) public",
-    "function selectRandomDataProvider(DataProviderType providerType) external view returns (address)"
-        "function fundProject(uint256 amount) external payable",
+    "function selectRandomDataProvider(DataProviderType providerType) external view returns (address)",
+    "function fundProject(uint256 amount) external payable",
   ];
 
   bool get isInOperatingChain => currentChain == operatingChain;
@@ -48,7 +48,6 @@ class Web3 extends GetxController {
   clear() {
     currentAddress = '';
     selectedAddress = '';
-
     update();
   }
 

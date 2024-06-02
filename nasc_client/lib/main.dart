@@ -47,6 +47,11 @@ class MyApp extends StatelessWidget {
             fontSize: 20,
             color: Colors.white,
           ),
+          /*  bodyMedium: GoogleFonts.montserrat(
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+            color: Colors.amber,
+          ), */
         ),
         cardTheme: CardTheme(
           clipBehavior: Clip.antiAlias,

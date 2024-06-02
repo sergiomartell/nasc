@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nasc_client/services/services.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class InvestorsPage extends StatefulWidget {
   const InvestorsPage({super.key});
@@ -21,6 +23,10 @@ class _InvestorsPageState extends State<InvestorsPage> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
+          actions: [
+            web3.isConnected ? _buildWalletButton(web3) : Container(),
+            const SizedBox(width: 20)
+          ],
         ),
         body: Container(
           height: size.height,
@@ -37,7 +43,7 @@ class _InvestorsPageState extends State<InvestorsPage> {
           ),
           child: SingleChildScrollView(
             child: Column(
-              children: [_buildHero(size, context, theme)],
+              children: [_buildHero(size, context, theme, web3)],
             ),
           ),
         ),
@@ -46,9 +52,10 @@ class _InvestorsPageState extends State<InvestorsPage> {
   }
 
   //* Widget Builds
-  Container _buildHero(Size screen, BuildContext context, TextTheme theme) {
+  Container _buildHero(
+      Size screen, BuildContext context, TextTheme theme, Web3 web3) {
     return Container(
-      height: screen.height * .7,
+      height: screen.height * .8,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -59,7 +66,7 @@ class _InvestorsPageState extends State<InvestorsPage> {
         ],
         image: const DecorationImage(
           image: AssetImage(
-            "assets/images/bannerElMexicano.png",
+            "assets/images/ElMexicanoBanner.png",
           ),
           filterQuality: FilterQuality.high,
           alignment: Alignment.centerLeft,
@@ -68,94 +75,165 @@ class _InvestorsPageState extends State<InvestorsPage> {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             padding: const EdgeInsets.all(30),
-            height: 150,
+            height: 100,
             width: screen.width,
           ),
-          const Spacer(),
-          _buildGeneralInfo(screen),
+          _buildGeneralInfo(screen, theme, web3),
           const Spacer(),
         ],
       ),
     );
   }
 
-  Wrap _buildGeneralInfo(Size screen) {
-    return Wrap(
-      alignment: WrapAlignment.center,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: screen.width * .10,
-      children: const [
-        Column(
-          children: [
-            Text(
-              "Token Price: .0008 ETH}",
+  Widget _buildGeneralInfo(Size screen, TextTheme theme, Web3 web3) {
+    return Padding(
+      padding: const EdgeInsets.all(33),
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: screen.width * .10,
+        runSpacing: 33,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(33),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(.7),
+              borderRadius: BorderRadius.circular(20),
             ),
-            Text(
-              "Goal: \$6,000,000",
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("El Mexicano", style: theme.displayMedium),
+                Text("Natural Asset Smart Contract", style: theme.titleMedium),
+                TextButton.icon(
+                  onPressed: () {
+                    launchUrlString(
+                        "https://sepolia.etherscan.io/address/0xb63c7485718cdc27907c702bc6837734eda288f3");
+                  },
+                  icon: const Icon(FontAwesomeIcons.ethereum),
+                  label: const Text(
+                    "0xB63c7485718cdc27907c702bC6837734eDA288F3",
+                  ),
+                ),
+                SizedBox(
+                  width: 500,
+                  child: Text(
+                      "El Mexicano is a conservation and regeneration project of 600 hectares in the outskirts of Guadalajara Jalisco",
+                      style: theme.bodyMedium),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconIndicator(
+                      icon2: const Icon(Icons.location_city),
+                      data: "Ixtlahuacán del Río",
+                      theme: theme,
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    IconIndicator(
+                      icon2: const Icon(Icons.home_work),
+                      data: "Jalisco",
+                      theme: theme,
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    IconIndicator(
+                      icon2: const Icon(Icons.water),
+                      data: "Lerma-Santiago",
+                      theme: theme,
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    IconIndicator(
+                      icon2: const Icon(Icons.flag),
+                      data: "Mexico",
+                      theme: theme,
+                    ),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-          ],
-        ),
-        /* Column(
-          children: [
-            const SizedBox(
-              height: 50,
-            ),
-            _buildSupportButton(),
-            const SizedBox(
-              height: 50,
-            ),
-          ],
-        ) */
-      ],
+          ),
+          Image.asset(
+            "assets/images/mexicanoMap.png",
+            width: 800,
+          )
+        ],
+      ),
     );
   }
 
-  Row _buildAppBar(BuildContext context, TextTheme theme) {
+  ElevatedButton _buildWalletButton(Web3 web3) {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 20,
+            ),
+            shape: const StadiumBorder()),
+        onPressed: () {
+          web3.isConnected ? web3.clear() : web3.connectProvider();
+        },
+        child: web3.isConnected
+            ? Text(
+                Utils.abbreviate(web3.currentAddress),
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  letterSpacing: 1.2,
+                  fontWeight: FontWeight.w900,
+                ),
+              )
+            : const Text(
+                "Connect Wallet",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  letterSpacing: 1.2,
+                  fontWeight: FontWeight.w900,
+                ),
+              ));
+  }
+}
+
+class IconIndicator extends StatelessWidget {
+  const IconIndicator({
+    super.key,
+    required this.icon2,
+    required this.data,
+    required this.theme,
+  });
+
+  final Icon icon2;
+  final String data;
+  final TextTheme theme;
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
-        InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Image.asset(
-            "assets/images/nasc.png",
-            filterQuality: FilterQuality.high,
-          ),
+        icon2,
+        const SizedBox(
+          width: 10,
+        ),
+        Text(
+          data,
+          style: theme.labelSmall,
         ),
       ],
-    );
-  }
-
-  ElevatedButton _buildSupportButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 75,
-            vertical: 20,
-          ),
-          shape: const StadiumBorder()),
-      onPressed: () {
-        //_support();
-      },
-      child: const Text(
-        "Support",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 40,
-          letterSpacing: 1.2,
-          fontWeight: FontWeight.w900,
-        ),
-      ),
     );
   }
 }
