@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nasc_client/services/services.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:flutter_web_file_selector/flutter_web_file_selector.dart';
 
 class InvestorsPage extends StatefulWidget {
   const InvestorsPage({super.key});
@@ -12,9 +13,12 @@ class InvestorsPage extends StatefulWidget {
 }
 
 class _InvestorsPageState extends State<InvestorsPage> {
+  //* Variables
   final TextEditingController _textController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String _numberOfTokens = "";
+  bool _uploading = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -46,7 +50,13 @@ class _InvestorsPageState extends State<InvestorsPage> {
           ),
           child: SingleChildScrollView(
             child: Column(
-              children: [_buildHero(size, context, theme, web3)],
+              children: [
+                _buildHero(size, context, theme, web3),
+                const SizedBox(
+                  height: 33,
+                ),
+                _buildBaselineDataUri(web3)
+              ],
             ),
           ),
         ),
@@ -55,6 +65,73 @@ class _InvestorsPageState extends State<InvestorsPage> {
   }
 
   //* Widget Builds
+
+  // Widget that creates a row of icon buttons to set baseline data URI
+  Widget _buildBaselineDataUri(Web3 web3) {
+    LighthouseUploader uploader = Get.put(LighthouseUploader());
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        WebFileSelector(
+          onData: (files) async {
+            setState(() {
+              _uploading = true;
+            });
+            try {
+              if (files.isNotEmpty) {
+                await uploader.uploadFile(files.first).then((value) {
+                  setState(() {
+                    _uploading = false;
+                  });
+                  /* String? metadataURI =
+                    await uploader.uploadJson(metadata.toJson());
+                if (metadataURI != null) {
+                  await web3.setBaselineDataURI(1, "ipfs://$metadataURI");
+                  setState(() {
+                    _uploading = false;
+                  });
+                } */
+                });
+              }
+            } catch (e) {
+              setState(() {
+                _uploading = false;
+              });
+              throw Exception("Failed to upload metadata");
+            }
+            //final reader = FileReader();
+          },
+          child: !_uploading
+              ? ElevatedButton.icon(
+                  onPressed: () {},
+                  icon: const Icon(FontAwesomeIcons.ethereum),
+                  label: const Text("Set Baseline Data URI"),
+                )
+              : const CircularProgressIndicator(),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        ElevatedButton.icon(
+          onPressed: () {
+            web3.setBaselineDataURI(2, "https://www.baselinDataURI.com");
+          },
+          icon: const Icon(FontAwesomeIcons.ethereum),
+          label: const Text("Set Baseline Data URI"),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        ElevatedButton.icon(
+          onPressed: () {
+            web3.setBaselineDataURI(3, "https://www.baselinDataURI.com");
+          },
+          icon: const Icon(FontAwesomeIcons.ethereum),
+          label: const Text("Set Baseline Data URI"),
+        ),
+      ],
+    );
+  }
 
   // Widget that builds form to fund project
 

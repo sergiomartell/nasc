@@ -43,6 +43,48 @@ class Web3 extends GetxController {
     }
   }
 
+  // Function to set baseline data URI
+  Future<dynamic> setBaselineDataURI(int tokenId, String tokenURI) async {
+    final contract = Contract(elMexicano, abi, provider?.getSigner());
+    try {
+      final tx = await contract.send(
+        "setBaselineDataURI",
+        [tokenId, tokenURI],
+      );
+      return tx;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // Function to set legal document URI
+  Future<dynamic> setLegalDocumentURI(int tokenId, String tokenURI) async {
+    final contract = Contract(elMexicano, abi, provider?.getSigner());
+    try {
+      final tx = await contract.send(
+        "setLegalDocumentURI",
+        [tokenId, tokenURI],
+      );
+      return tx;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // Function to set monitoring data URI
+  Future<dynamic> setMonitoringDataURI(int tokenId, String tokenURI) async {
+    final contract = Contract(elMexicano, abi, provider?.getSigner());
+    try {
+      final tx = await contract.send(
+        "setMonitoringDataURI",
+        [tokenId, tokenURI],
+      );
+      return tx;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   connectProvider() async {
     if (Ethereum.isSupported) {
       final accs = await ethereum!.requestAccount();
