@@ -3,11 +3,11 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
-/* const logger = require("firebase-functions/logger");
+const logger = require("firebase-functions/logger");
 const lighthouse = require("@lighthouse-web3/sdk");
 const LitJsSdk = require("@lit-protocol/lit-node-client");
-const {LitNetwork} = require("@lit-protocol/constants"); */
-/* 
+const {LitNetwork} = require("@lit-protocol/constants");
+
 class Lit{
     litNodeClient;
     chain;
@@ -25,7 +25,7 @@ class Lit{
     await this.litNodeClient.connect();
     }
 }
- */
+
 // onRequest function to handle HTTP requests to upload file to Lighthouse
 exports.uploadFile2Lighthouse = onRequest(async (req, res) => {
     try {
@@ -73,10 +73,10 @@ exports.uploadFile2Lighthouse = onRequest(async (req, res) => {
     }
 });
 
-/* // onRequest function to encrypt file using Lighthouse
+// onRequest function to encrypt file using Lighthouse
 exports.encryptFile = onRequest(async (req, res) => {
   const {file} = req.body;
   logger.info("Encrypting file using Lighthouse", {file});
   const result = await lighthouse.encryptFile(file);
   res.json(result);
-}); */
+});

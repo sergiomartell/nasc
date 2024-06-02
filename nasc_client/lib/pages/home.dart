@@ -95,14 +95,18 @@ class HomePage extends StatelessWidget {
               "Create a conservation or regeneration project in your municipality",
         ),
         CallCard(
-          onTap: () {},
+          onTap: () {
+            Get.toNamed('/citizen');
+          },
           icon: Icons.people,
           title: "Citizen",
           description:
               "Monitor conservation or regeneration projects in your area",
         ),
         CallCard(
-          onTap: () {},
+          onTap: () {
+            Get.toNamed('/investors');
+          },
           icon: Icons.monetization_on,
           title: "Investors",
           description:
