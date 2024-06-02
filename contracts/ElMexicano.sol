@@ -11,7 +11,7 @@ contract ElMexicano is ERC1155, Ownable{
 
     uint256 public tokenPrice = 0.0001 ether;
     uint256 public totalSupply = 6000000;
-    string private _contractURI = 'https://silver-sophisticated-dingo-305.mypinata.cloud/ipfs/QmULdB9sYfqn1YcsPuWdsteBu7zjaYQLs2AQ7JUSG7Bc8E';
+    string private _contractURI = 'https://nftstorage.link/ipfs/bafkreieooxnbnsact7jtvodc65b3372dayvc6sjul3lsmg6md4w35lusq4';
 
     mapping(uint256 => uint256) public tokenSupply;    
     mapping(DataProviderType => address[]) public dataProviders;

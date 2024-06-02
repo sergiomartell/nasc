@@ -1,0 +1,28 @@
+{
+    "name": "El Mexicano Natural Asset",
+    "Description": "El Mexicano is a conservation and regeneration project of 600 hectares in the outskirts of Guadalajara Jalisco",
+    "image": "URL with image for the Asset",
+    "banner_image": "https://nftstorage.link/ipfs/bafybeignpvcafc2p6lw26als2bxobl5cmjinryh5hf6nk3msmsuzozyyu4",
+    "featured_image": "https://nftstorage.link/ipfs/bafybeignpvcafc2p6lw26als2bxobl5cmjinryh5hf6nk3msmsuzozyyu4",
+    "external_link" : "",
+    "collaborators" : "",
+    "coordinates": [
+        { "lat": 20.802182, "lng": -103.301128 },
+        { "lat": 20.801248, "lng": -103.301719 },
+        { "lat": 20.799995, "lng": -103.302496 },
+        { "lat": 20.799944, "lng": -103.302519 },
+        { "lat": 20.799846, "lng": -103.302553 },
+        { "lat": 20.799096, "lng": -103.302796 },
+        { "lat": 20.798315, "lng": -103.302762 },
+        { "lat": 20.798297, "lng": -103.302646 },
+        { "lat": 20.797511, "lng": -103.297657 },
+        { "lat": 20.792311, "lng": -103.292436 },
+        { "lat": 20.797366, "lng": -103.290928 },
+        { "lat": 20.80065, "lng": -103.297745 },
+        { "lat": 20.802182, "lng": -103.301128 }
+    ],
+    "municipality" : "Ixtlahuacán del Río",
+    "state" : "Jalisco",
+    "country" : "Mexico",
+    "basin" : "Lerma-Santiago"
+}
