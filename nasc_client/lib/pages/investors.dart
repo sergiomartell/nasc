@@ -28,6 +28,7 @@ class _InvestorsPageState extends State<InvestorsPage> {
       builder: (web3) => Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           elevation: 0,
           backgroundColor: Colors.transparent,
           actions: [
@@ -55,7 +56,10 @@ class _InvestorsPageState extends State<InvestorsPage> {
                 const SizedBox(
                   height: 33,
                 ),
-                _buildBaselineDataUri(web3)
+                _buildBaselineDataUri(web3),
+                const SizedBox(
+                  height: 33,
+                ),
               ],
             ),
           ),
@@ -103,9 +107,11 @@ class _InvestorsPageState extends State<InvestorsPage> {
           },
           child: !_uploading
               ? ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 45)),
                   onPressed: () {},
                   icon: const Icon(FontAwesomeIcons.ethereum),
-                  label: const Text("Add Baseline Data"),
+                  label: const Text("Baseline Data"),
                 )
               : const CircularProgressIndicator(),
         ),
@@ -186,7 +192,7 @@ class _InvestorsPageState extends State<InvestorsPage> {
   Container _buildHero(
       Size screen, BuildContext context, TextTheme theme, Web3 web3) {
     return Container(
-      height: screen.height * .8,
+      height: screen.height * 1.2,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -309,7 +315,7 @@ class _InvestorsPageState extends State<InvestorsPage> {
           ),
           Image.asset(
             "assets/images/mexicanoMap.png",
-            width: 800,
+            width: screen.width * .4,
           )
         ],
       ),
