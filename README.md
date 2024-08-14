@@ -4,7 +4,7 @@
 
 ![Static Badge](https://img.shields.io/badge/mission-escape_velocity_for_climate_investments-purple?style=plastic)
 <br />
-![GitHub top language](https://img.shields.io/github/languages/top/sergiomartell/nasc)
+![GitHub contributors](https://img.shields.io/github/contributors/sergiomartell/nasc)
 ![GitHub last commit](https://img.shields.io/github/last-commit/sergiomartell/nasc)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 # Natural Asset Smart Contract
