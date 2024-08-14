@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="./images/nasc_icon.png" alt="NASC Icon" width="400" height="400"/>
+
 ![Static Badge](https://img.shields.io/badge/mission-escape_velocity_for_climate_investments-purple?style=plastic)
 <br />
 ![GitHub top language](https://img.shields.io/github/languages/top/sergiomartell/nasc)
