@@ -2,7 +2,7 @@
 
 <img src="./images/nascIcon.png" alt="NASC Icon" width="400"/>
 
-![Static Badge](https://img.shields.io/badge/mission-escape_velocity_for_climate_investments-purple?style=plastic)
+![Static Badge](https://img.shields.io/badge/mission-escape_velocity_for_climate_investments-royalblue?style=plastic)
 <br />
 ![GitHub contributors](https://img.shields.io/github/contributors/sergiomartell/nasc)
 ![GitHub last commit](https://img.shields.io/github/last-commit/sergiomartell/nasc)
