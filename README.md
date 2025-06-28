@@ -97,7 +97,7 @@ These tokens represent the emmission of impact certificates/credits that can be 
 7. Buffers against extreme events
 8. Waste Water Treatment
 9. Soil Erosion and Fertility
-10. Polinization
+10. Pollination
 11. Biological Control
 
 #### Supporting Services
